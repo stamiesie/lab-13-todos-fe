@@ -7,6 +7,7 @@ export default class TodosListPage extends Component {
         todo: ''
     }
 
+
     componentDidMount = async () => {
         // call function with token passed down from props
         await this.fetchTodos();
@@ -38,7 +39,7 @@ export default class TodosListPage extends Component {
 
 
     render() {
-        console.log(this.props);
+        // console.log(this.props);
         return (
             <div>
                 < h1 > Todo List</h1>
@@ -49,7 +50,7 @@ export default class TodosListPage extends Component {
                     <button>Add</button>
                 </form>
                 {/* if there are no todos on the list, display message */}
-                {!this.state.todos.length && <p>Your life is complete. Wanna knock out some of my todos?</p>}
+                {!this.state.todos.length && <p>Your life is complete.</p>}
                 {this.state.todos.map(todo =>
                     <p key={`${todo.todo}-${todo.id}`}
                         onClick={() => this.handleComplete(todo.id)}

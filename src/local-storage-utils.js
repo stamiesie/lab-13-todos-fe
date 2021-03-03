@@ -4,7 +4,8 @@ const USER = 'USER';
 
 export function getUserFromLocalStorage() {
     const user = localStorage.getItem(USER);
-    if (user) JSON.parse(user);
+    // if there is a user and user has a token...
+    if (user && user.token) JSON.parse(user);
 
     return {
         id: '',

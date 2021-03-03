@@ -11,6 +11,7 @@ import Home from './Home/Home.js';
 import Login from './AuthPages/Login.js';
 import Signup from './AuthPages/Signup.js';
 import TodosListPage from './TodosList/TodosListPage.js';
+import PrivateRoute from './Components/PrivateRoute.js';
 import { getUserFromLocalStorage, putUserInLocalStorage } from './local-storage-utils';
 
 
@@ -31,12 +32,17 @@ export default class App extends Component {
     // pass handleUserChange down to Login and Signup pages, to set state/token/user on those pages
   }
 
+  // this will clear out user
+  handleLogout = () => {
+    this.handleUserChange();
+  }
+
 
   render() {
     return (
       <div>
         <Router>
-          <Header />
+          <Header handleLogout={this.handleLogout} />
           <Switch>
             <Route
               path="/"
@@ -60,9 +66,10 @@ export default class App extends Component {
                   handleUserChange={this.handleUserChange}
                   {...routerProps} />}
             />
-            <Route
+            <PrivateRoute
               path="/todos"
               exact
+              token={this.state.user && this.state.user.token}
               render={(routerProps) => <TodosListPage
                 // passing down user to todo list
                 user={this.state.user}
