@@ -10,7 +10,7 @@ import Header from './Components/Header.js';
 import Home from './Home/Home.js';
 import Login from './AuthPages/Login.js';
 import Signup from './AuthPages/Signup.js';
-import TodoListPage from './TodosList/TodosListPage.js';
+import TodosListPage from './TodosList/TodosListPage.js';
 import { getUserFromLocalStorage, putUserInLocalStorage } from './local-storage-utils';
 
 
@@ -48,6 +48,7 @@ export default class App extends Component {
               exact
               render={(routerProps) =>
                 <Login
+                  // must go inside component
                   handleUserChange={this.handleUserChange}
                   {...routerProps} />}
             />
@@ -62,7 +63,10 @@ export default class App extends Component {
             <Route
               path="/todos"
               exact
-              render={(routerProps) => <TodoListPage {...routerProps} />}
+              render={(routerProps) => <TodosListPage
+                // passing down user to todo list
+                user={this.state.user}
+                {...routerProps} />}
             />
           </Switch>
         </Router>
