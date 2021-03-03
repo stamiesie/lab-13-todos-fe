@@ -42,7 +42,9 @@ export default class App extends Component {
     return (
       <div>
         <Router>
-          <Header handleLogout={this.handleLogout} />
+          <Header
+            user={this.state.user}
+            handleLogout={this.handleLogout} />
           <Switch>
             <Route
               path="/"

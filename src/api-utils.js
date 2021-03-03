@@ -1,7 +1,7 @@
 import request from "superagent";
 
 // This localhost has to be different from the front end localhost port. Also, spin up back end server before front end.  React will figure out the port conflic
-const URL = 'http://localhost:3000';
+const URL = 'https://salty-reef-60706.herokuapp.com/';
 
 
 export async function signupUser(email, password) {
