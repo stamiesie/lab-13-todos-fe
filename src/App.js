@@ -11,10 +11,27 @@ import Home from './Home/Home.js';
 import Login from './AuthPages/Login.js';
 import Signup from './AuthPages/Signup.js';
 import TodoListPage from './TodosList/TodosListPage.js';
+import { getUserFromLocalStorage, putUserInLocalStorage } from './local-storage-utils';
 
 
 
 export default class App extends Component {
+  // See LS utils
+  state = {
+    user: getUserFromLocalStorage()
+  }
+
+  // Callback of token from child component.  Then using the token, add user to state (Passed UP to parent from Signup)
+  handleUserChange = (user) => {
+    this.setState({ user })
+
+    // also need to add user/token to local storage
+    putUserInLocalStorage(user);
+
+    // pass handleUserChange down to Login and Signup pages, to set state/token/user on those pages
+  }
+
+
   render() {
     return (
       <div>
@@ -29,12 +46,18 @@ export default class App extends Component {
             <Route
               path="/login"
               exact
-              render={(routerProps) => <Login {...routerProps} />}
+              render={(routerProps) =>
+                <Login
+                  handleUserChange={this.handleUserChange}
+                  {...routerProps} />}
             />
             <Route
               path="/signup"
               exact
-              render={(routerProps) => <Signup {...routerProps} />}
+              render={(routerProps) =>
+                <Signup
+                  handleUserChange={this.handleUserChange}
+                  {...routerProps} />}
             />
             <Route
               path="/todos"
